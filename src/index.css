@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+@theme {
+  /* Palette — carbón, marfil, arena, madera, oro apagado */
+  --color-carbon: #161310;
+  --color-carbon-soft: #211d18;
+  --color-ink: #2a2521;
+  --color-stone: #8a8074;
+  --color-stone-light: #b8ae9e;
+  --color-sand: #cdbfa4;
+  --color-sand-light: #e4dac4;
+  --color-ivory: #f4efe4;
+  --color-ivory-warm: #ede5d4;
+  --color-paper: #faf8f3;
+  --color-wood: #6b4a34;
+  --color-wood-dark: #4a3222;
+  --color-gold: #a9865a;
+  --color-gold-soft: #c9ab7d;
+
+  --font-serif: "Fraunces", "Iowan Old Style", ui-serif, Georgia, serif;
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-marquee: marquee 32s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-carbon);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-paper);
+}
+
+/* Subtle grain overlay — applied via .grain utility */
+.grain {
+  position: relative;
+}
+
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Custom scrollbar — quiet, not default browser chrome */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-paper);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand);
+  border-radius: 999px;
+  border: 2px solid var(--color-paper);
+}
+
+/* Focus states for accessibility — visible, on-brand */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
